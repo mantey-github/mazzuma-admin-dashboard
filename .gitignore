@@ -17,8 +17,8 @@ coverage
 build
 
 .env.development
-#.env.production
-#.env.staging
+.env.production
+.env.staging
 .env.test
 
 npm-debug.log*
