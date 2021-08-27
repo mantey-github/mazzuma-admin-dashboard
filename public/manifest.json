@@ -1,6 +1,6 @@
 {
-  "short_name": "Creditlocus",
-  "name": "Creditlocus Team (Admin) Dashboard",
+  "short_name": "Mazzuma",
+  "name": "Mazzuma Admin Dashboard",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,9 +8,9 @@
       "type": "image/x-icon"
     },
     {
-      "src": "creditlocus-logo.png",
+      "src": "favicon.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "96x96"
     }
   ],
   "start_url": ".",

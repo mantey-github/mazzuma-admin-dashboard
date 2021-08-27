@@ -26,9 +26,9 @@ export const transformResponse = [
 ]
 
 const defaultRequests = {
-  baseURL: env('CREDITLOCUS_API_URL'),
+  baseURL: env('MAZZUMA_API_URL'),
   headers: () => {
-    const cookie = getCookie('_creditlocus_admin_tokid')
+    const cookie = getCookie('_mazzuma_admin_tokid')
 
     const AUTH_TOKEN = cookie && JSON.parse(cookie)
 

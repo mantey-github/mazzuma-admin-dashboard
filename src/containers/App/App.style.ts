@@ -1,28 +1,86 @@
 import styled, { css } from 'styled-components/macro'
-import { Container } from 'react-bootstrap'
 import { device } from '../../utils/mediaQueries'
 
-type DashboardStyleProps = {
+type AppStyleProps = {
   needsFixedPosition?: boolean | null
 }
 
-export const AppWrapper = styled.div`
+export const AppContainer = styled.div`
   width: 100%;
-  height: 100vh;
-  // height: 100%;
-  display: block;
-  background: #fdfdfd;
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  padding-left: 0;
+  padding-right: 0;
 `
 
-export const AppContainer = styled(Container)`
-  width: 100%;
-  height: 100vh;
-  display: block;
-  background: #fdfdfd;
-  padding: 0px !important;
+export const SidebarColumn = styled.div`
+  padding: 20px;
+  background: #fafafa;
+  flex: 1 1 15%;
+  display: flex;
+  flex-direction: column;
 `
 
-export const PageWrapper = styled.div<DashboardStyleProps>`
+export const MainColumn = styled.div`
+  background: #ffffff;
+  flex: 1 1 85%;
+`
+
+export const ColumnHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 30px;
+  padding-left: 30px;
+
+  img.notify {
+    margin-right: 30px;
+  }
+`
+
+export const ColumnBody = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden scroll;
+  position: relative;
+  padding-right: 30px;
+  padding-left: 30px;
+`
+
+export const AvatarName = styled.span`
+  font-family: 'Goldplay', sans-serif;
+  font-style: normal;
+  font-size: 13px;
+  color: #000000;
+
+  &[data-initials]:before {
+    content: attr(data-initials);
+    display: inline-block;
+    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    line-height: 34px;
+    text-align: center;
+    border-radius: 50%;
+    vertical-align: middle;
+    background: #ecf9ec;
+    border: 3px solid #c49ee1;
+    color: #2a2a2a;
+  }
+
+  @media screen and ${device.smallMobile} {
+  }
+
+  @media screen and ${device.mobile} {
+  }
+`
+
+export const PageWrapper = styled.div<AppStyleProps>`
   height: 100%;
   width: 100%;
   padding: 0 5% !important;

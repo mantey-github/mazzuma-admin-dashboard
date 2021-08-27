@@ -47,7 +47,7 @@ function NotFound({ history }: InferProps<typeof NotFound.propTypes>) {
                     {`Looks like you're lost. Don't worry lets take you `}
                     <span
                       onClick={() => {
-                        const dashboardRoute = `${window.location.origin}${urlPaths.DASHBOARD_PATH}`
+                        const dashboardRoute = `${window.location.origin}${urlPaths.DASHBOARD_URL_PATH}`
                         window.open(dashboardRoute, '_self')
                       }}
                     >

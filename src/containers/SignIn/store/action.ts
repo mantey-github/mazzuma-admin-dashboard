@@ -17,7 +17,7 @@ import { setCookie } from '../../../utils/setCookie'
 import urlPaths from '../../../utils/urlPaths'
 import Cookies from 'js-cookie'
 
-axios.defaults.baseURL = env('CREDITLOCUS_API_URL')
+axios.defaults.baseURL = env('MAZZUMA_API_URL')
 
 axios.defaults.headers.common['Accept'] = 'application/json'
 
@@ -52,7 +52,7 @@ export const sendSignInLink = (
     try {
       await apigateway.get('/login', {
         email: email,
-        callbackUrl: destinationPath || `${env('CREDITLOCUS_APP_URL')}/dashboard`,
+        callbackUrl: destinationPath || `${env('MAZZUMA_APP_URL')}/dashboard`,
       })
 
       dispatch(processAuth(false))
@@ -90,8 +90,8 @@ export const signIn = (
         transformRequest: transformRequest,
       })) as any
 
-      await setCookie('_creditlocus_admin_tokid', JSON.stringify(token))
-      await setCookie('_creditlocus_admin_usrid', JSON.stringify(admin))
+      await setCookie('_mazzuma_admin_tokid', JSON.stringify(token))
+      await setCookie('_mazzuma_admin_usrid', JSON.stringify(admin))
 
       dispatch(setHasSentSignInLink(false))
       history.replace(destinationPath)
@@ -107,8 +107,8 @@ export const signOut = (history: H.History): ThunkAction<void, RootState, unknow
   return async (dispatch) => {
     dispatch(setAuthProfile(null))
     dispatch(setHasSentSignInLink(false))
-    Cookies.remove('_creditlocus_admin_tokid')
-    Cookies.remove('_creditlocus_admin_usrid')
+    Cookies.remove('_mazzuma_admin_tokid')
+    Cookies.remove('_mazzuma_admin_usrid')
     history.replace(urlPaths.SIGNIN_URL_PATH)
     window.location.reload()
   }

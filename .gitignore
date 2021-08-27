@@ -1,27 +1,21 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# misc
 .vscode
 .idea
+.DS_Store
 *.DS_Store
 */.DS_Store
 
-.vscode
-.DS_Store
 node_modules
 .pnp
 .pnp.js
-
 coverage
-
 build
-
 .env.development
-.env.production
-.env.staging
+#.env.production
+#.env.staging
 .env.test
-
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .idea/
+cypress.env.json
+cypress/screenshots/All Integration Specs/my-image.png

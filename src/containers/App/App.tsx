@@ -1,6 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { AppContainer, PageContainer, PageWrapper } from './App.style'
-import { Toast } from '../../components'
+import {
+  AppContainer,
+  PageContainer,
+  PageWrapper,
+  SidebarColumn,
+  MainColumn,
+  ColumnHeader,
+  ColumnBody,
+  AvatarName,
+} from './App.style'
+import { Sidebar, Toast } from '../../components'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { signOut } from '../SignIn/store/action'
@@ -9,6 +18,7 @@ import * as H from 'history'
 import { ToastProvider } from 'react-toast-notifications'
 import { useIdleTimer } from 'react-idle-timer'
 import { setIsAuthIdle } from './store/action'
+import { icons } from '../../assets/icons'
 
 App.propTypes = {
   history: PropTypes.object as PropTypes.Validator<H.History>,
@@ -33,8 +43,8 @@ function App({ history, children }: InferProps<typeof App.propTypes>) {
   }
 
   const handleOnIdle = (event: Event) => {
-    dispatch(setIsAuthIdle(true))
-    dispatch(signOut(history))
+    // dispatch(setIsAuthIdle(true))
+    // dispatch(signOut(history))
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -47,35 +57,22 @@ function App({ history, children }: InferProps<typeof App.propTypes>) {
 
   return (
     <ToastProvider>
-      <AppContainer fluid={true}>
-        {/* <Navigation */}
-        {/*  showMobileNav={ */}
-        {/*    history?.location?.pathname === urlPaths.MESSAGES_URL_PATH && */}
-        {/*    currentMessageStep === messagesSteps.CHAT_ROOM */}
-        {/*  } */}
-        {/*  homeRoute={urlPaths.DASHBOARD_PATH} */}
-        {/*  onSignOut={() => dispatch(signOut(history))} */}
-        {/*  profilePhoto={authProfile?.profilePicture || images.imageMountaineerAvatar} */}
-        {/*  profileName={ */}
-        {/*    authProfile?.firstName ? `Hello ${authProfile?.firstName}` : 'Hello River User' */}
-        {/*  } */}
-        {/* /> */}
+      <AppContainer>
+        <SidebarColumn>
+          <Sidebar />
+        </SidebarColumn>
 
-        {/* <MobileNavigation */}
-        {/*  showMobileNav={ */}
-        {/*    history?.location?.pathname === urlPaths.MESSAGES_URL_PATH && */}
-        {/*    currentMessageStep === messagesSteps.CHAT_ROOM */}
-        {/*  } */}
-        {/*  onGoBack={() => history.goBack()} */}
-        {/*  guidePhoto={healthGuide?.profilePicture || images.imageMountaineerAvatar} */}
-        {/*  guideName={`${healthGuide?.firstName} ${healthGuide?.lastName}` || 'Health Guide'} */}
-        {/*  guidePosition="Primary Care Provider" */}
-        {/* /> */}
-
+        <MainColumn>
+          <ColumnHeader>
+            <img className={'notify'} src={icons.iconNotifyBadge} alt={'notify icon'} />
+            <AvatarName data-initials={'MR'} />
+          </ColumnHeader>
+          <ColumnBody>{children}</ColumnBody>
+        </MainColumn>
         <Toast />
-        <PageWrapper needsFixedPosition={false}>
-          <PageContainer>{children}</PageContainer>
-        </PageWrapper>
+        {/* <PageWrapper needsFixedPosition={false}> */}
+        {/*  <PageContainer>{children}</PageContainer> */}
+        {/* </PageWrapper> */}
       </AppContainer>
     </ToastProvider>
   )

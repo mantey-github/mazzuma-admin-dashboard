@@ -14,7 +14,7 @@ function Navigation() {
   return (
     <NavigationWrapper>
       <NavigationContainer>
-        <NavigationBrand to="https://pensaintl.tests/home">Creditlocus</NavigationBrand>
+        <NavigationBrand to="https://mazzuma.com/home">Mazzuma</NavigationBrand>
         <NavigationToggle>
           <span></span>
         </NavigationToggle>

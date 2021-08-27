@@ -15,9 +15,9 @@ const WithAuthProfile = (WrappedComponent: React.ComponentType<any>): WithAuthPr
     const dispatch = useDispatch()
 
     useEffect(() => {
-      const authTokenCookie = getCookie('_creditlocus_admin_tokid')
+      const authTokenCookie = getCookie('_mazzuma_admin_tokid')
 
-      const authProfileCookie = getCookie('_creditlocus_admin_usrid')
+      const authProfileCookie = getCookie('_mazzuma_admin_usrid')
 
       if (!(authTokenCookie && authProfileCookie)) {
         dispatch(signOut(props.history))

@@ -1,11 +1,18 @@
-body {
+html,
+body,
+#root {
+  height: 100%;
   margin: 0;
+}
+
+body {
   /*font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
   /*  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',*/
   /*  sans-serif;*/
-  font-family: Nunito, sans-serif;
+  font-family: Montserrat, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff !important;
 }
 
 code {
@@ -16,10 +23,14 @@ code {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1040;
+  z-index: 7000;
   width: 100% !important;
   height: 100% !important;
   background-color: #000;
+}
+
+.modal-backdrop.show {
+  opacity: 0.8;
 }
 
 .react-toast-notifications__container {

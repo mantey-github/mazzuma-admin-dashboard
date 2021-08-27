@@ -8,7 +8,7 @@ import {
   useParams,
 } from 'react-router-dom'
 import withAuthProfile from './containers/WithAuthProfile'
-import retry from './utils/retry'
+import lazyWithRetry from './utils/lazyWithRetry'
 import urlPaths from './utils/urlPaths'
 import App from './containers/App/App'
 import { getCookie } from './utils/getCookie'
@@ -17,14 +17,14 @@ import { shallowEqual, useSelector } from 'react-redux'
 import { RootState } from './redux/reducers'
 import ErrorBoundary from './containers/ErrorBoundary/ErrorBoundary'
 
-const Signin = lazy(() => retry(() => import('./containers/SignIn/SignIn')))
-const Dashboard = lazy(() => retry(() => import('./containers/Dashboard/Dashboard')))
-const NotFound = lazy(() => retry(() => import('./containers/NotFound/NotFound')))
+const Signin = lazyWithRetry(() => import('./containers/SignIn/SignIn'))
+const Dashboard = lazyWithRetry(() => import('./containers/Dashboard/Dashboard'))
+const NotFound = lazyWithRetry(() => import('./containers/NotFound/NotFound'))
 
 const PublicRoute = ({ component: Component, ...rest }: RouteProps) => {
   if (!Component) return null
-  const authTokenCookie = getCookie('_creditlocus_admin_tokid')
-  const authProfileCookie = getCookie('_creditlocus_admin_usrid')
+  const authTokenCookie = getCookie('_mazzuma_admin_tokid')
+  const authProfileCookie = getCookie('_mazzuma_admin_usrid')
   return (
     <Route
       {...rest}
@@ -32,7 +32,7 @@ const PublicRoute = ({ component: Component, ...rest }: RouteProps) => {
         authTokenCookie && authProfileCookie ? (
           <Redirect
             to={{
-              pathname: urlPaths.DASHBOARD_PATH,
+              pathname: urlPaths.DASHBOARD_URL_PATH,
               state: { from: props.location },
             }}
           />
@@ -48,8 +48,12 @@ const PublicRoute = ({ component: Component, ...rest }: RouteProps) => {
 
 const PrivateRoute = ({ component: Component, ...rest }: RouteProps) => {
   if (!Component) return null
-  const authTokenCookie = getCookie('_creditlocus_admin_tokid')
-  const authProfileCookie = getCookie('_creditlocus_admin_usrid')
+  // const authTokenCookie = getCookie('_mazzuma_admin_tokid')
+  // const authProfileCookie = getCookie('_mazzuma_admin_usrid')
+
+  const authTokenCookie = true
+  const authProfileCookie = true
+
   return (
     <Route
       {...rest}
@@ -98,11 +102,12 @@ const Routes = () => {
               <Router>
                 <Switch>
                   <PublicRoute exact path={urlPaths.SIGNIN_URL_PATH} component={Signin} />
-                  <PrivateRoute
-                    exact
-                    path={urlPaths.DASHBOARD_PATH}
-                    component={withAuthProfile(Dashboard) as any}
-                  />
+                  <PrivateRoute exact path={urlPaths.DASHBOARD_URL_PATH} component={Dashboard} />
+                  {/* <PrivateRoute */}
+                  {/*  exact */}
+                  {/*  path={urlPaths.DASHBOARD_PATH} */}
+                  {/*  component={withAuthProfile(Dashboard) as any} */}
+                  {/* /> */}
                   <Route component={withAuthProfile(NotFound) as any} />
                 </Switch>
               </Router>

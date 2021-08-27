@@ -50,7 +50,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       // TODO https://www.smashingmagazine.com/2020/06/react-error-handling-reporting-error-boundary-sentry/
       // Temporarily using Slack
 
-      const cookie = getCookie('_mountain_tokid')
+      const cookie = getCookie('_mazzuma_admin_tokid')
       const auth = cookie && JSON.parse(cookie)
 
       reportErrorToSlack(
@@ -65,14 +65,14 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   handleSignOut = () => {
-    Cookies.remove('_creditlocus_tokid')
-    Cookies.remove('_creditlocus_usrid')
+    Cookies.remove('_mazzuma_admin_tokid')
+    Cookies.remove('_mazzuma_admin_usrid')
     localStorage.clear()
     window.location.reload()
   }
 
   handleGoBack = () => {
-    window.location.href = urlPaths.DASHBOARD_PATH
+    window.location.href = urlPaths.DASHBOARD_URL_PATH
   }
 
   render() {
@@ -85,7 +85,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 <PageContainer>
                   <ErrorBoundWrapper>
                     <ErrorWrapper md="12">
-                      <img width={'30%'} alt="error on creditlocus" src={''} className="error" />
+                      <img width={'30%'} alt="error on mazzuma" src={''} className="error" />
                       <h5>{'Whoops!'}</h5>
                       <p>
                         {`Something unusual happened. Kindly retry your last action.`}
@@ -95,7 +95,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                         If this persists, please reach out to{' '}
                         <span
                           onClick={() => {
-                            window.open(env('CREDITLOCUS_SUPPORT_URL'), '_self')
+                            window.open(env('MAZZUMA_SUPPORT_URL'), '_self')
                           }}
                         >
                           {' '}

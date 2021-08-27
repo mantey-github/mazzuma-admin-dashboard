@@ -1,102 +1,269 @@
 import styled from 'styled-components/macro'
 import { Row, Col } from 'react-bootstrap'
-import { device } from '../../utils/mediaQueries'
+import { images } from '../../assets/images'
 
-export const CareServiceWrapper = styled(Row)`
-  margin-right: 0px !important;
-  margin-left: 0px !important;
-  padding-top: 60px;
-
-  @media screen and ${device.smallMobile} {
-    padding-top: 50px;
+export const DashHeader = styled.div`
+  h3 {
+    font-size: 25px;
+    color: #2a2a2a;
+    margin-bottom: 2px;
+    font-weight: bolder;
   }
 
-  @media screen and ${device.mobile} {
-    padding-top: 50px;
+  p {
+    color: #a8a8a8;
+    font-size: 14px;
   }
 `
 
-export const CareServiceColumns = styled(Col)`
-  padding-right: calc(20px / 2) !important;
-  padding-left: calc(20px / 2) !important;
+export const DashCardsRow = styled(Row)`
+  margin-top: 25px;
+`
+
+export const CardsCol = styled(Col)``
+
+export const CardItemOne = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: #fdf7e7;
+  border-radius: 8px;
+  padding: 20px;
+
+  img {
+    width: 30px;
+  }
+
+  p {
+    color: #2a2a2a;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  p.more {
+    color: #a8a8a8;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: unset;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  span.count {
+    color: #2a2a2a;
+    font-weight: bolder;
+    line-height: 1.3;
+    font-size: 25px;
+  }
+`
+
+export const CardItemTwo = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: #fce8e8;
+  border-radius: 8px;
+  padding: 20px;
+
+  img {
+    width: 30px;
+  }
+
+  p {
+    color: #2a2a2a;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  p.more {
+    color: #a8a8a8;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: unset;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  span.count {
+    color: #2a2a2a;
+    font-weight: bolder;
+    line-height: 1.3;
+    font-size: 25px;
+  }
+`
+
+export const CardItemThree = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: #ecf9ec;
+  border-radius: 8px;
+  padding: 20px;
+
+  img {
+    width: 30px;
+  }
+
+  p {
+    color: #2a2a2a;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  p.more {
+    color: #a8a8a8;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: unset;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  span.count {
+    color: #2a2a2a;
+    font-weight: bolder;
+    line-height: 1.3;
+    font-size: 25px;
+  }
+`
+
+export const TransCol = styled(Col)``
+
+export const MMTranGraphicsSection = styled.div`
+  background: #fafafa;
+  border-radius: 8px;
+  min-height: 300px;
+  margin-top: 30px;
+  padding: 20px;
+`
+
+export const MMTranListsSection = styled.div`
+  background: #fafafa;
+  border-radius: 8px;
+  min-height: 300px;
+  margin-top: 30px;
+  padding: 20px;
+`
+
+export const BalanceCol = styled(Col)``
+
+export const BalanceCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: #ffffff url('${images.imageBalanceCardMaskBg}') no-repeat bottom;
+  background-size: cover;
+  border: 1px solid #c49ee1;
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 180px;
+
+  img {
+    width: 100px;
+  }
+
+  p.notice {
+    color: #a8a8a8;
+    margin-bottom: 0;
+    font-size: 13px;
+    margin-top: 20px;
+  }
+
+  p.money {
+    color: #2a2a2a;
+    font-size: 20px;
+    font-weight: bolder;
+    cursor: pointer;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  span.currency {
+    color: #2a2a2a;
+    font-size: 10px;
+    margin-right: 5px;
+  }
+`
+
+export const TransTitleLabel = styled.div`
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
   margin-bottom: 20px;
 `
 
-export const CareProviderColumns = styled(Col)`
-  padding-right: calc(20px / 2) !important;
-  padding-left: calc(20px / 2) !important;
-  margin-bottom: 40px;
+export const MMTransRow = styled(Row)``
+
+export const TransRefCol = styled(Col)`
   display: flex;
-`
+  flex-direction: row;
+  align-items: center;
 
-export const CareProvidersWrapper = styled(Row)`
-  margin-right: 0px !important;
-  margin-left: 0px !important;
-  padding-top: 40px;
-
-  @media screen and ${device.smallMobile} {
-    padding-top: 30px;
+  img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
   }
 
-  @media screen and ${device.mobile} {
-    padding-top: 30px;
-  }
-`
-
-export const DashboardWrapper = styled(Row)`
-  margin-right: 0 !important;
-  margin-left: 0 !important;
-  padding-top: 60px;
-
-  @media screen and ${device.smallMobile} {
-    padding-top: 50px;
+  p {
+    margin-bottom: 0;
+    color: #2a2a2a;
+    font-size: 14px;
   }
 
-  @media screen and ${device.mobile} {
-    padding-top: 50px;
+  span {
+    color: #2a2a2a;
+    font-size: 12px;
+  }
+
+  span.codeLabel {
+    font-size: 10px;
+    color: #000000;
+    font-weight: 500;
   }
 `
 
-export const WelcomeHeaderColumn = styled(Col)``
-
-export const DashboardTitle = styled.h5`
-  margin-bottom: 24px;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 33px;
-  line-height: 23px;
-  letter-spacing: 0.03em;
-  color: #3a3a3a;
-  text-transform: none;
-
-  @media screen and ${device.smallMobile} {
-    font-size: 25px;
-    margin-top: 0;
-    margin-bottom: 20px;
+export const TransAmtCol = styled(Col)`
+  p {
+    margin-bottom: 0;
+    color: #2a2a2a;
+    font-size: 14px;
   }
 
-  @media screen and ${device.mobile} {
-    font-size: 25px;
-    margin-top: 0;
-    margin-bottom: 20px;
+  span {
+    color: #f2c759;
+    font-size: 11px;
+    background: #fdf7e7;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 2px 3px;
   }
 `
 
-export const WelcomeSubTitle = styled.p`
-  margin-bottom: 0px;
-  font-family: CeraProMedium, serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23px;
-  letter-spacing: 0.03em;
-  color: #000000;
+export const TransDateCol = styled(Col)`
+  color: #2a2a2a;
+  font-size: 14px;
+`
 
-  @media screen and ${device.smallMobile} {
-    font-size: 16px;
-  }
-
-  @media screen and ${device.mobile} {
-    font-size: 20px;
-  }
+export const TransDivider = styled.hr`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid #f5f5f5;
 `
