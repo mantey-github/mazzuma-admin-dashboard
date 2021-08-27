@@ -1,10 +1,9 @@
 import styled from 'styled-components/macro'
-import { Link } from 'react-router-dom'
-import { device } from '../../utils/mediaQueries'
 
 export const SidebarWrapper = styled.div`
   img.logo {
-    width: 150px;
+    width: 100%;
+    object-fit: contain;
   }
 `
 
@@ -16,16 +15,18 @@ export const SidebarMenus = styled.div`
 export const MenuItem = styled.div`
   font-weight: 400;
   font-size: 14px;
-  padding-top: 10px;
-  padding-right: 5px;
-  padding-left: 5px;
-  padding-bottom: 10px;
+  padding: 10px 5px;
   cursor: pointer;
   color: #2a2a2a;
 
   &:hover {
     color: #662d91;
     font-weight: 600;
+
+    img {
+      filter: invert(21%) sepia(58%) saturate(2004%) hue-rotate(253deg) brightness(91%)
+        contrast(96%);
+    }
   }
 
   img[alt='dashboard'] {

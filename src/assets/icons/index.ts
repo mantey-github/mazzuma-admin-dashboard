@@ -7,6 +7,10 @@ import iconDashboardCardThree from './icon-dashboard-card-three.svg'
 import iconMazzumaTransLogo from './icon-mazzuma-trans-logo.png'
 import iconSidebarMenuDashboard from './icon-sidebar-menu-dashboard.svg'
 import iconSidebarMenuTransaction from './icon-sidebar-menu-transaction.svg'
+import iconSidebarMenuVerifiedUsers from './icon-sidebar-menu-verified-users.svg'
+import iconSidebarMenuBusinesses from './icon-sidebar-menu-businesses.svg'
+import iconSidebarMenuAccounts from './icon-sidebar-menu-accounts.svg'
+import iconSidebarMenuContactPerson from './icon-sidebar-menu-contact-person.svg'
 
 export const icons = {
   iconDropdown: iconDropdown,
@@ -18,4 +22,8 @@ export const icons = {
   iconMazzumaTransLogo: iconMazzumaTransLogo,
   iconSidebarMenuDashboard: iconSidebarMenuDashboard,
   iconSidebarMenuTransaction: iconSidebarMenuTransaction,
+  iconSidebarMenuVerifiedUsers: iconSidebarMenuVerifiedUsers,
+  iconSidebarMenuBusinesses: iconSidebarMenuBusinesses,
+  iconSidebarMenuAccounts: iconSidebarMenuAccounts,
+  iconSidebarMenuContactPerson: iconSidebarMenuContactPerson,
 }

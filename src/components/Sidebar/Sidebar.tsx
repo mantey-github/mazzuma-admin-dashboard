@@ -18,22 +18,22 @@ function Sidebar() {
         </MenuItem>
 
         <MenuItem>
-          <img src={icons.iconSidebarMenuDashboard} alt={'accounts'} />
+          <img src={icons.iconSidebarMenuAccounts} alt={'accounts'} />
           Accounts
         </MenuItem>
 
         <MenuItem>
-          <img src={icons.iconSidebarMenuDashboard} alt={'businesses'} />
+          <img src={icons.iconSidebarMenuBusinesses} alt={'businesses'} />
           Businesses
         </MenuItem>
 
         <MenuItem>
-          <img src={icons.iconSidebarMenuDashboard} alt={'contacts'} />
+          <img src={icons.iconSidebarMenuContactPerson} alt={'contacts'} />
           Contact Person
         </MenuItem>
 
         <MenuItem>
-          <img src={icons.iconSidebarMenuDashboard} alt={'verified'} />
+          <img src={icons.iconSidebarMenuVerifiedUsers} alt={'verified'} />
           Verified Users
         </MenuItem>
 
