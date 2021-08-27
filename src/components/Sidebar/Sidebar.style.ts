@@ -15,7 +15,7 @@ export const SidebarMenus = styled.div`
 export const MenuItem = styled.div`
   font-weight: 400;
   font-size: 14px;
-  padding: 10px 5px;
+  padding: 15px 5px;
   cursor: pointer;
   color: #2a2a2a;
 
@@ -39,10 +39,14 @@ export const MenuItem = styled.div`
 
   img[alt='businesses'] {
     margin-right: 10px;
+    width: 23.5px;
+    height: 23.5px;
   }
 
   img[alt='contacts'] {
     margin-right: 10px;
+    width: 23.5px;
+    height: 23.5px;
   }
 
   img[alt='verified'] {
