@@ -19,7 +19,8 @@ export const MenuItem = styled.div`
   cursor: pointer;
   color: #2a2a2a;
 
-  &:hover {
+  &:hover,
+  &.active {
     color: #662d91;
     font-weight: 600;
 

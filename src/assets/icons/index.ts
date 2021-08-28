@@ -11,6 +11,8 @@ import iconSidebarMenuVerifiedUsers from './icon-sidebar-menu-verified-users.svg
 import iconSidebarMenuBusinesses from './icon-sidebar-menu-businesses.svg'
 import iconSidebarMenuAccounts from './icon-sidebar-menu-accounts.svg'
 import iconSidebarMenuContactPerson from './icon-sidebar-menu-contact-person.svg'
+import iconExportDownload from './icon-export-download.svg'
+import iconRefreshTable from './icon-refresh-table.svg'
 
 export const icons = {
   iconDropdown: iconDropdown,
@@ -26,4 +28,6 @@ export const icons = {
   iconSidebarMenuBusinesses: iconSidebarMenuBusinesses,
   iconSidebarMenuAccounts: iconSidebarMenuAccounts,
   iconSidebarMenuContactPerson: iconSidebarMenuContactPerson,
+  iconExportDownload: iconExportDownload,
+  iconRefreshTable: iconRefreshTable,
 }

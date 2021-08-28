@@ -1,24 +1,19 @@
 import styled, { css } from 'styled-components/macro'
 
-export const ButtonWrapper = styled.div`
-  display: inline-flex;
-  min-width: 230px;
-`
-
 type ButtonStyleProps = {
-  type?: 'button-primary'
+  type?: 'button-primary' | 'button-secondary'
   disabled?: boolean
 }
 
-export const ButtonStyle = styled.div<ButtonStyleProps>`
+export const ButtonWrapper = styled.div<ButtonStyleProps>`
+  font-style: normal;
+  display: inline-flex;
+  justify-content: center;
   font-size: 16px;
   letter-spacing: 0.05em;
-  font-weight: 600;
-  padding: 16px 50px;
-  min-width: inherit;
+  padding: 10.5px 50px;
   border-radius: 5px;
   cursor: pointer;
-  display: inline-block;
   transition: 0.1s;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0);
   text-align: center;
@@ -27,8 +22,8 @@ export const ButtonStyle = styled.div<ButtonStyleProps>`
   ${(props) => {
     if (props.type === 'button-primary') {
       return css`
-        color: #fff;
-        background: #45abe0;
+        color: #ffffff;
+        background: #e98fb6;
         transition: 0.1s;
 
         &:hover {
@@ -37,11 +32,35 @@ export const ButtonStyle = styled.div<ButtonStyleProps>`
 
         ${props.disabled &&
         `
-                color: #C9CBD0;
-                background: #EFF0F2;
-                border: 1px solid #dfdfdf;
+                color: #FDF7F2;
+                background: #CAAEB9;
                 cursor: default;
-                padding: 16px 50px;
+                
+                &:hover {
+                  opacity: unset !important;
+                }
+            `}
+      `
+    }
+    if (props.type === 'button-secondary') {
+      return css`
+        color: #a46edd;
+        background: #efe6f9;
+        transition: 0.1s;
+
+        &:hover {
+          opacity: 0.85;
+        }
+
+        ${props.disabled &&
+        `
+                color: #FDF7F2;
+                background: #CAAEB9;
+                cursor: default;
+                
+                &:hover {
+                  opacity: unset !important;
+                }
             `}
       `
     }

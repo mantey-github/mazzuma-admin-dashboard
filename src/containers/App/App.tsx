@@ -61,7 +61,6 @@ function App({ history, children }: InferProps<typeof App.propTypes>) {
         <SidebarColumn>
           <Sidebar />
         </SidebarColumn>
-
         <MainColumn>
           <ColumnHeader>
             <img className={'notify'} src={icons.iconNotifyBadge} alt={'notify icon'} />
@@ -70,9 +69,6 @@ function App({ history, children }: InferProps<typeof App.propTypes>) {
           <ColumnBody>{children}</ColumnBody>
         </MainColumn>
         <Toast />
-        {/* <PageWrapper needsFixedPosition={false}> */}
-        {/*  <PageContainer>{children}</PageContainer> */}
-        {/* </PageWrapper> */}
       </AppContainer>
     </ToastProvider>
   )

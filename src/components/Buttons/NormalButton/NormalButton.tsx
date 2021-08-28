@@ -1,6 +1,6 @@
 import React from 'react'
 import { icons } from '../../../assets/icons'
-import { ButtonWrapper, ButtonStyle } from './NormalButton.style'
+import { ButtonWrapper } from './NormalButton.style'
 
 NormalButton.defaultProps = {
   id: '',
@@ -13,7 +13,7 @@ NormalButton.defaultProps = {
 type NormalButtonProps = {
   id?: string
   label?: string
-  type?: 'button-primary'
+  type?: 'button-primary' | 'button-secondary'
   onClick?: (value: any) => void
   disabled?: boolean
   loading?: boolean
@@ -30,19 +30,18 @@ function NormalButton({
   onClick,
 }: NormalButtonProps) {
   return (
-    <ButtonWrapper className={className}>
-      <ButtonStyle
-        id={id}
-        type={type}
-        disabled={disabled}
-        onClick={!disabled ? onClick : undefined}
-      >
-        {!(disabled && loading) ? label : 'Please wait...'}
+    <ButtonWrapper
+      className={className}
+      id={id}
+      type={type}
+      disabled={disabled}
+      onClick={!disabled ? onClick : undefined}
+    >
+      {!(disabled && loading) ? label : 'Please wait...'}
 
-        {disabled && loading && (
-          <img style={{ width: 20, marginLeft: 15 }} src={icons.iconLoader} alt="Loader" />
-        )}
-      </ButtonStyle>
+      {disabled && loading && (
+        <img style={{ width: 20, marginLeft: 20 }} src={icons.iconLoader} alt="Loader" />
+      )}
     </ButtonWrapper>
   )
 }
