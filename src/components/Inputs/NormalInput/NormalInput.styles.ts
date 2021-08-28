@@ -39,7 +39,7 @@ export const InputWrapper = styled.input<InputWrapperProps>`
   &:focus {
     outline-offset: 0;
     outline: -webkit-focus-ring-color auto 0;
-    border: 1.5px solid #45abe0;
+    border: 1.5px solid #662d91;
     transition-duration: 0.3s;
   }
 

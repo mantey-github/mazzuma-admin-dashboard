@@ -1,20 +1,10 @@
 import React from 'react'
-import { PreLoaderWrapper } from './FullPageLoader.style'
-
-function random() {
-  const text = ['Please wait...']
-  return text[Math.floor(Math.random() * text.length)]
-}
+import { LoaderWrapper } from './FullPageLoader.style'
 
 function FullPageLoader() {
   return (
     <>
-      <PreLoaderWrapper>
-        <div className="loader">
-          <div className="loader__figure"></div>
-        </div>
-        <p className="loader__label">{random()}</p>
-      </PreLoaderWrapper>
+      <LoaderWrapper>{'Please wait...'}</LoaderWrapper>
     </>
   )
 }

@@ -26,6 +26,7 @@ import useValidator from '../../hooks/useValidator'
 import { sendSignInLink, signIn } from './store/action'
 import { useParams } from 'react-router-dom'
 import * as queryString from 'querystring'
+import { images } from '../../assets/images'
 
 SignIn.propTypes = {
   history: PropTypes.object as PropTypes.Validator<H.History>,
@@ -69,63 +70,63 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
 
   return (
     <SignInWrapper id="wrapper">
-      <Navigation />
       <SignInContainer fluid={true}>
         <SignInRow>
           <SignInCol md={6}>
             <SignInCard>
               <SignInCardHeader>
-                {!hasSentSigninLink
-                  ? `Login - Send Email Link`
-                  : `Check your Email for a login link`}
+                <img src={images.imageMazzumaLogo} alt={'mazzuma'} />
               </SignInCardHeader>
-
-              {!hasSentSigninLink ? (
-                <SignInCardBody>
-                  <FormGroup>
-                    <FormText htmlFor="email" className="col-md-4">
-                      E-Mail Address
-                    </FormText>
-                    <FormInputCol md={6}>
-                      <SignInInput
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        error={false}
-                      />
-                      {validator.message('email', email, 'required|email', {
-                        messages: {
-                          required: 'Email Address is required.',
-                        },
-                      })}
-                    </FormInputCol>
-                  </FormGroup>
-                  <FormButtonRow>
-                    <FormButtonCol className="col-md-8 offset-md-4">
-                      <FormButton
-                        onClick={handleSendSignInLink}
-                        loading={isAuthenticating}
-                        disabled={isAuthenticating}
-                        label={'Send'}
-                      />
-                    </FormButtonCol>
-                  </FormButtonRow>
-                </SignInCardBody>
-              ) : (
-                <SignInCardBody>
-                  <FormGroup>
-                    <FormStatusText>
-                      {`To keep your account secure, we've sent an email to confirm, it's really you.
-                      Please sign in using the personalized link in the email.`}
-                    </FormStatusText>
-
-                    <FormResendText>
-                      {`Haven't`} received it yet? <a href="#">Resend</a>.
-                    </FormResendText>
-                  </FormGroup>
-                </SignInCardBody>
-              )}
+              <SignInCardBody>
+                <FormGroup>
+                  <FormText htmlFor="email" className="col-md-4">
+                    E-Mail Address
+                  </FormText>
+                  <FormInputCol md={6}>
+                    <SignInInput
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      error={false}
+                    />
+                    {validator.message('email', email, 'required|email', {
+                      messages: {
+                        required: 'Email Address is required.',
+                      },
+                    })}
+                  </FormInputCol>
+                </FormGroup>
+                <FormGroup>
+                  <FormText htmlFor="password" className="col-md-4">
+                    Password
+                  </FormText>
+                  <FormInputCol md={6}>
+                    <SignInInput
+                      type="password"
+                      name="password"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      error={false}
+                    />
+                    {validator.message('password', email, 'required', {
+                      messages: {
+                        required: 'Password is required.',
+                      },
+                    })}
+                  </FormInputCol>
+                </FormGroup>
+                <FormButtonRow>
+                  <FormButtonCol className="col-md-8 offset-md-4">
+                    <FormButton
+                      onClick={handleSendSignInLink}
+                      loading={isAuthenticating}
+                      disabled={isAuthenticating}
+                      label={'Login'}
+                    />
+                  </FormButtonCol>
+                </FormButtonRow>
+              </SignInCardBody>
             </SignInCard>
           </SignInCol>
         </SignInRow>

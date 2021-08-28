@@ -23,7 +23,7 @@ export const ButtonWrapper = styled.div<ButtonStyleProps>`
     if (props.type === 'button-primary') {
       return css`
         color: #ffffff;
-        background: #e98fb6;
+        background: #662d91;
         transition: 0.1s;
 
         &:hover {
@@ -44,7 +44,7 @@ export const ButtonWrapper = styled.div<ButtonStyleProps>`
     }
     if (props.type === 'button-secondary') {
       return css`
-        color: #a46edd;
+        color: #662d91;
         background: #efe6f9;
         transition: 0.1s;
 

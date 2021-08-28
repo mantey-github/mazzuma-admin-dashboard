@@ -1,7 +1,6 @@
 import styled from 'styled-components/macro'
 import { Row } from 'react-bootstrap'
-import { Button } from '../../components'
-import { NormalInput } from '../../components/Inputs'
+import { Button, Input } from '../../components'
 
 export const PageHeader = styled.div`
   h3 {
@@ -78,7 +77,7 @@ export const SearchBtn = styled(Button)`
   margin-left: 30px;
 `
 
-export const SearchInput = styled(NormalInput)`
+export const SearchInput = styled(Input)`
   width: 350px;
   background: #f5f5f5;
   border: none;

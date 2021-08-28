@@ -21,7 +21,7 @@ function Transactions({ history, location }: InferProps<typeof Transactions.prop
     <>
       <PageHeader>
         <h3>Transactions</h3>
-        <p>A list of processed transactions</p>
+        <p>A list of processed mm transactions</p>
       </PageHeader>
       <PageCardsRow>
         <TableActionsSection>
