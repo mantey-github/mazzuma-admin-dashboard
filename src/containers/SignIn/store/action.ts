@@ -42,66 +42,76 @@ export const setHasSentSignInLink = (sentLink: boolean): AuthActionTypes => {
   }
 }
 
-export const sendSignInLink = (
-  email: string,
+export const signIn = (
+  username: string,
+  password: string,
   history: H.History,
   destinationPath: string
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     dispatch(processAuth(true))
     try {
-      await apigateway.get('/login', {
-        email: email,
-        callbackUrl: destinationPath || `${env('MAZZUMA_APP_URL')}/dashboard`,
+      const response = await apigateway.post('/login', {
+        username: username,
+        password: password,
       })
 
-      dispatch(processAuth(false))
+      console.log('Something', response)
+      // dispatch(processAuth(false))
+      // history.push(urlPaths.DASHBOARD_URL_PATH)
 
-      dispatch(setHasSentSignInLink(true))
+      // dispatch(setHasSentSignInLink(true))
+
+      // if (!isEmpty(destinationPath)) {
+      //   history.replace(destinationPath)
+      //   return
+      // }
+      //
+      // history.replace(urlPaths.DASHBOARD_PATH, { authProfile: mergedAuthData })
     } catch (error) {
-      dispatch(processAuth(false))
-      dispatch(setHasSentSignInLink(false))
-      console.log(error)
+      // dispatch(processAuth(false))
+      // dispatch(setHasSentSignInLink(false))
+      console.log('Something', error)
     }
   }
 }
 
-export const signIn = (
-  token: string,
-  history: H.History,
-  destinationPath: string
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
-    dispatch(setHasSentSignInLink(true))
-    try {
-      const {
-        data: {
-          data: { admin },
-        },
-      } = (await axios({
-        method: 'get',
-        url: `/`,
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        transformResponse: transformResponse,
-        transformRequest: transformRequest,
-      })) as any
-
-      await setCookie('_mazzuma_admin_tokid', JSON.stringify(token))
-      await setCookie('_mazzuma_admin_usrid', JSON.stringify(admin))
-
-      dispatch(setHasSentSignInLink(false))
-      history.replace(destinationPath)
-    } catch (error) {
-      dispatch(processAuth(false))
-      dispatch(setHasSentSignInLink(false))
-      console.log(error)
-    }
-  }
-}
+// export const signIn = (
+//   token: string,
+//   history: H.History,
+//   destinationPath: string
+// ): ThunkAction<void, RootState, unknown, AnyAction> => {
+//   return async (dispatch) => {
+//     dispatch(setHasSentSignInLink(true))
+//     try {
+//       const {
+//         data: {
+//           data: { admin },
+//         },
+//       } = (await axios({
+//         method: 'get',
+//         url: `/`,
+//         headers: {
+//           'Content-Type': 'application/json',
+//           Accept: 'application/json',
+//           Authorization: `Bearer ${token}`,
+//         },
+//         transformResponse: transformResponse,
+//         transformRequest: transformRequest,
+//       })) as any
+//
+//       await setCookie('_mazzuma_admin_tokid', JSON.stringify(token))
+//       await setCookie('_mazzuma_admin_usrid', JSON.stringify(admin))
+//
+//       dispatch(setHasSentSignInLink(false))
+//       history.replace(destinationPath)
+//     } catch (error) {
+//       dispatch(processAuth(false))
+//       dispatch(setHasSentSignInLink(false))
+//       console.log(error)
+//     }
+//   }
+// }
 
 export const signOut = (history: H.History): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {

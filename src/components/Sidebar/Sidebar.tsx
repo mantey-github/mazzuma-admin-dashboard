@@ -15,7 +15,12 @@ function Sidebar() {
 
   return (
     <SidebarWrapper>
-      <img className={'logo'} src={images.imageMazzumaLogo} alt={'mazzuma logo'} />
+      <img
+        onClick={() => history.push(urlPaths.DASHBOARD_URL_PATH)}
+        className={'logo'}
+        src={images.imageMazzumaLogo}
+        alt={'mazzuma logo'}
+      />
       <SidebarMenus>
         <MenuItem
           onClick={() => history.push(urlPaths.DASHBOARD_URL_PATH)}

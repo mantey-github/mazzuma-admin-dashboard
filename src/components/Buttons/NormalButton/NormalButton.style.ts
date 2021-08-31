@@ -33,7 +33,7 @@ export const ButtonWrapper = styled.div<ButtonStyleProps>`
         ${props.disabled &&
         `
                 color: #FDF7F2;
-                background: #CAAEB9;
+                background: #662d9180;
                 cursor: default;
                 
                 &:hover {
@@ -55,7 +55,7 @@ export const ButtonWrapper = styled.div<ButtonStyleProps>`
         ${props.disabled &&
         `
                 color: #FDF7F2;
-                background: #CAAEB9;
+                background: #662d9180;
                 cursor: default;
                 
                 &:hover {

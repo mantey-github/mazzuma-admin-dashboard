@@ -42,7 +42,7 @@ const defaultRequests = {
   transformResponse,
 }
 
-export const formatErrors = ({ status, data: { errors, error } }: any) => {
+export const formatErrors = ({ status, data: { errors, error, message } }: any) => {
   return is(Array, errors)
     ? errors.map((error: any) => ({
         status: status,
@@ -52,7 +52,7 @@ export const formatErrors = ({ status, data: { errors, error } }: any) => {
       }))
     : {
         status: status || error?.status,
-        message: error || error?.error,
+        message: error || error?.error || message,
       }
 }
 
@@ -72,8 +72,6 @@ export default function request(defaultConfigs = {}) {
       }).then(
         (response) => {
           const data = response?.data?.data || response?.data
-          // const metadata = response?.data?.metadata
-          // return resolve(metadata ? { data, ...metadata } : data)
           return resolve(data)
         },
         (error) => {

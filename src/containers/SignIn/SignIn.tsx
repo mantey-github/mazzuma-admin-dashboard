@@ -13,19 +13,15 @@ import {
   FormButtonRow,
   FormButtonCol,
   SignInInput,
-  FormStatusText,
-  FormResendText,
   FormButton,
 } from './SignIn.style'
 import PropTypes, { InferProps } from 'prop-types'
 import * as H from 'history'
-import { Navigation } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import useValidator from '../../hooks/useValidator'
-import { sendSignInLink, signIn } from './store/action'
+import { signIn } from './store/action'
 import { useParams } from 'react-router-dom'
-import * as queryString from 'querystring'
 import { images } from '../../assets/images'
 
 SignIn.propTypes = {
@@ -34,7 +30,8 @@ SignIn.propTypes = {
 }
 
 function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [validator, showValidationMessage] = useValidator()
   const [destinationPath, setDestinationPath] = useState<string>('')
   const { token } = useParams<Record<string, string | undefined>>()
@@ -50,11 +47,6 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
     if (location.state) {
       const { from } = (location.state as any) || {}
       if (from?.pathname) {
-        if (from?.search) {
-          const { token }: any = queryString.parse(from?.search.slice(1))
-          dispatch(signIn(token, history, `${from?.pathname}`))
-          return
-        }
         setDestinationPath(`${from?.pathname}${from?.search || ''}`)
       }
     }
@@ -65,7 +57,7 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
       showValidationMessage(true)
       return
     }
-    dispatch(sendSignInLink(email, history, destinationPath))
+    dispatch(signIn(username, password, history, destinationPath))
   }
 
   return (
@@ -79,20 +71,20 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
               </SignInCardHeader>
               <SignInCardBody>
                 <FormGroup>
-                  <FormText htmlFor="email" className="col-md-4">
-                    E-Mail Address
+                  <FormText htmlFor="username" className="col-md-4">
+                    Username
                   </FormText>
                   <FormInputCol md={6}>
                     <SignInInput
-                      type="email"
-                      name="email"
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
+                      type="text"
+                      name="username"
+                      value={username}
+                      onChange={(event) => setUsername(event.target.value)}
                       error={false}
                     />
-                    {validator.message('email', email, 'required|email', {
+                    {validator.message('username', username, 'required', {
                       messages: {
-                        required: 'Email Address is required.',
+                        required: 'Username is required.',
                       },
                     })}
                   </FormInputCol>
@@ -105,11 +97,11 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
                     <SignInInput
                       type="password"
                       name="password"
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
                       error={false}
                     />
-                    {validator.message('password', email, 'required', {
+                    {validator.message('password', password, 'required', {
                       messages: {
                         required: 'Password is required.',
                       },

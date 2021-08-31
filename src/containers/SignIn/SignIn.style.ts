@@ -1,13 +1,8 @@
 import styled, { css } from 'styled-components/macro'
 import { device } from '../../utils/mediaQueries'
-import { AuthErrors } from './store/types'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import { Button, Input } from '../../components'
 import { images } from '../../assets/images'
-
-type SignInStyleProps = {
-  type?: AuthErrors
-}
 
 export const SignInWrapper = styled.section`
   width: 100%;
@@ -43,7 +38,6 @@ export const SignInRow = styled(Row)`
 export const SignInCol = styled(Col)``
 
 export const SignInCard = styled(Card)`
-  //background: #fafafa;
   background: #ffffff;
   background-image: url('${images.imageBalanceCardMaskBg}');
   background-size: cover;
@@ -76,8 +70,9 @@ export const FormText = styled.label`
   padding-top: calc(0.375rem + 1px);
   padding-bottom: calc(0.375rem + 1px);
   margin-bottom: 0;
-  font-size: inherit;
+  font-size: 14px;
   line-height: 1.6;
+  font-weight: 400;
 `
 
 export const FormButtonRow = styled.div`
@@ -105,21 +100,10 @@ export const SignInInput = styled(Input)``
 export const FormButtonCol = styled.div``
 
 export const FormButton = styled(Button)`
-  background: #662d91;
-  border-radius: 5px;
-  color: #ffffff;
+  //background: #662d91;
+  //border-radius: 5px;
+  //color: #ffffff;
   font-size: 14px;
   font-weight: 500;
   padding: 10px 30px;
-`
-
-export const FormStatusText = styled.p`
-  padding-left: 20px;
-  padding-right: 20px;
-`
-
-export const FormResendText = styled.p`
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-bottom: 0;
 `

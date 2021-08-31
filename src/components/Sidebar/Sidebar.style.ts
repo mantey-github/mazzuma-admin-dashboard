@@ -4,6 +4,7 @@ export const SidebarWrapper = styled.div`
   img.logo {
     width: 100%;
     object-fit: contain;
+    cursor: pointer;
   }
 `
 
