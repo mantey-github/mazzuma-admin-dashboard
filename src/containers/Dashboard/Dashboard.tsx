@@ -26,6 +26,8 @@ import { icons } from '../../assets/icons'
 import { images } from '../../assets/images'
 import urlPaths from '../../utils/urlPaths'
 import { getBusinesses } from '../Businesses/store/action'
+import { getVerifiedUsers } from '../VerifiedUsers/store/action'
+import { getTransactions } from '../Transactions/store/action'
 
 Dashboard.propTypes = {
   history: PropTypes.object as PropTypes.Validator<H.History>,
@@ -33,9 +35,11 @@ Dashboard.propTypes = {
 }
 
 function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>) {
-  const { businesses } = useSelector(
+  const { businesses, transactions, verifiedUsers } = useSelector(
     (state: RootState) => ({
       businesses: state.businesses.businesses,
+      verifiedUsers: state.verifiedUsers.verifiedUsers,
+      transactions: state.transactions.transactions,
     }),
     shallowEqual
   )
@@ -45,8 +49,12 @@ function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>
   useEffect(() => {
     ;(async function fetchDashboardStats() {
       await dispatch(getBusinesses())
+      await dispatch(getVerifiedUsers())
+      await dispatch(getTransactions())
     })()
   }, [dispatch])
+
+  console.log('fetchDashboardStats', transactions)
 
   return (
     <>
@@ -73,7 +81,7 @@ function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>
               <CardItemTwo>
                 <img src={icons.iconDashboardCardTwo} alt={'card icon'} />
                 <div>
-                  <span className={'count'}>0</span>
+                  <span className={'count'}>{verifiedUsers.length || 0}</span>
                   <p>Verified Users</p>
                   <p
                     className={'more'}

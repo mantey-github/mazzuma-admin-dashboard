@@ -57,6 +57,7 @@ export const TableCard = styled.table.attrs({
 })`
   background: #fafafa;
   border-radius: 8px;
+  position: relative;
 
   thead {
     color: #a8a8a8;
@@ -103,5 +104,24 @@ export const SearchInput = styled(Input)`
     color: #a8a8a8;
     font-weight: 500;
     font-size: 14px;
+  }
+`
+
+export const TableLoader = styled.div`
+  position: absolute;
+  top: 100%;
+  margin-top: 100px;
+  text-align: center;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  img {
+    width: 35px;
+  }
+
+  span {
+    display: flex;
+    color: #a8a8a8;
+    font-weight: 500;
   }
 `

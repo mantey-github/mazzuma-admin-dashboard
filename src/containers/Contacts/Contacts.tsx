@@ -11,7 +11,7 @@ import {
   TableLoader,
 } from './Contacts.style'
 import { icons } from '../../assets/icons'
-import { Contacts as ContactsType } from './store/types'
+import { Contact } from './store/types'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { getContacts } from './store/action'
@@ -23,7 +23,7 @@ Contacts.propTypes = {
 }
 
 function Contacts({ history, location }: InferProps<typeof Contacts.propTypes>) {
-  const [contactLists, setContactLists] = useState<Array<ContactsType>>([])
+  const [contactLists, setContactLists] = useState<Array<Contact>>([])
 
   const { isLoading, contacts } = useSelector(
     (state: RootState) => ({

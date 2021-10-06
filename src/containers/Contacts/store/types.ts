@@ -1,10 +1,10 @@
 export const SET_CONTACTS_ACTION = 'SET_CONTACTS_ACTION'
 
 export interface ContactsState {
-  contacts: Array<Contacts>
+  contacts: Array<Contact>
 }
 
-export interface Contacts {
+export interface Contact {
   accountId: number
   created: string
   deleted: number
@@ -17,7 +17,7 @@ export interface Contacts {
 
 interface SetContactsAction {
   type: typeof SET_CONTACTS_ACTION
-  payload: Array<Contacts>
+  payload: Array<Contact>
 }
 
 export type ContactsActionTypes = SetContactsAction

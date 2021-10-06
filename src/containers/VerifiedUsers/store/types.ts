@@ -5,29 +5,27 @@ export interface VerifiedUsersState {
 }
 
 export interface VerifiedUser {
-  accountId: number
-  active: number
-  airtelAccount: string
-  balance: string
-  businessEmail: string
-  businessLocation: number
-  businessName: string
-  callbackUrl: string
-  category: number
-  countryId: string
+  activated: number
+  businessId: number
   created: string
   deleted: number
-  fcmToken: string
+  dob: string
+  email: string
+  employmentDetails: string
+  facebook: string
+  firstName: string
   id: number
-  ipAddress: string
-  mazzumaAccount: string
-  mtnAccount: string
-  referralCode: string
-  referrer: string
-  tigoAccount: string
-  type: string
-  vodafoneAccount: string
-  walletId: string
+  idType: string
+  instagram: string
+  lastName: string
+  mobileMoneyNetwork: string
+  mobileMoneyNumber: string
+  nationality: string
+  occupation: string
+  phone: string
+  reason: string
+  residence: string
+  twitter: string
 }
 
 interface SetVerifiedUsersAction {

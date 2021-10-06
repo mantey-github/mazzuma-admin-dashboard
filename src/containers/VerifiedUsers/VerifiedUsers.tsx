@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes, { InferProps } from 'prop-types'
 import * as H from 'history'
 import {
@@ -7,9 +7,15 @@ import {
   TableCard,
   TableActionsSection,
   SearchBtn,
+  TableLoader,
   SearchInput,
 } from './VerifiedUsers.style'
 import { icons } from '../../assets/icons'
+import moment from 'moment'
+import { VerifiedUser } from './store/types'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../redux/reducers'
+import { getVerifiedUsers } from './store/action'
 
 VerifiedUsers.propTypes = {
   history: PropTypes.object as PropTypes.Validator<H.History>,
@@ -17,6 +23,28 @@ VerifiedUsers.propTypes = {
 }
 
 function VerifiedUsers({ history, location }: InferProps<typeof VerifiedUsers.propTypes>) {
+  const [verifiedUsersLists, setVerifiedUsersLists] = useState<Array<VerifiedUser>>([])
+
+  const { isLoading, verifiedUsers } = useSelector(
+    (state: RootState) => ({
+      isLoading: state.app.isLoading,
+      verifiedUsers: state.verifiedUsers.verifiedUsers,
+    }),
+    shallowEqual
+  )
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    ;(async function fetchVerifiedUsers() {
+      await dispatch(getVerifiedUsers())
+    })()
+  }, [dispatch])
+
+  useEffect(() => {
+    setVerifiedUsersLists(verifiedUsers.slice(0, 50))
+  }, [verifiedUsers])
+
   return (
     <>
       <PageHeader>
@@ -60,7 +88,31 @@ function VerifiedUsers({ history, location }: InferProps<typeof VerifiedUsers.pr
               <th scope="col">Created At</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {isLoading ? (
+              <TableLoader>
+                <img src={icons.iconLoader} alt={'loader'} />
+                <span>loading verified users...</span>
+              </TableLoader>
+            ) : (
+              <>
+                {verifiedUsersLists.length > 0 &&
+                  verifiedUsersLists.map((user, index) => (
+                    <tr key={user.id}>
+                      <th scope="row">{index + 1}</th>
+                      <td>{user.businessId}</td>
+                      <td>{`${user.firstName} ${user.lastName}`}</td>
+                      <td>{user.phone}</td>
+                      <td>{user.email}</td>
+                      <td>{user.mobileMoneyNumber}</td>
+                      <td>{user.activated}</td>
+                      <td>{user.deleted}</td>
+                      <td>{moment(user.created).format('DD-MM-YYYY HH:mm:ss')}</td>
+                    </tr>
+                  ))}
+              </>
+            )}
+          </tbody>
         </TableCard>
       </PageCardsRow>
     </>
