@@ -4,6 +4,7 @@ import { RootState } from '../../../redux/reducers'
 import { AnyAction } from 'redux'
 import apigateway from '../../../utils/apigateway'
 import { setIsLoading } from '../../App/store/action'
+import { descend, prop, sort, sortBy } from 'ramda'
 
 export const setTransactionsAction = (
   transactions: Array<Transaction>
@@ -19,7 +20,11 @@ export const getTransactions = (): ThunkAction<void, RootState, unknown, AnyActi
     dispatch(setIsLoading(true))
     try {
       const transactions = (await apigateway.get('/getTransactions')) as Array<Transaction>
-      dispatch(setTransactionsAction(transactions || []))
+
+      if (!transactions) return
+
+      dispatch(setTransactionsAction(sort(descend(prop('id')), transactions)))
+
       dispatch(setIsLoading(false))
     } catch (error) {
       dispatch(setIsLoading(false))

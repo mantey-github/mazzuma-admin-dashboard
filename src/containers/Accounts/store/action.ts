@@ -4,6 +4,7 @@ import { RootState } from '../../../redux/reducers'
 import { AnyAction } from 'redux'
 import apigateway from '../../../utils/apigateway'
 import { setIsLoading } from '../../App/store/action'
+import { descend, prop, sort } from 'ramda'
 
 export const setAccountAction = (accounts: Array<Account>): AccountActionTypes => {
   return {
@@ -17,7 +18,11 @@ export const getAccounts = (): ThunkAction<void, RootState, unknown, AnyAction> 
     dispatch(setIsLoading(true))
     try {
       const accounts = (await apigateway.get('/getAccounts')) as Array<Account>
-      dispatch(setAccountAction(accounts || []))
+
+      if (!accounts) return
+
+      dispatch(setAccountAction(sort(descend(prop('id')), accounts)))
+
       dispatch(setIsLoading(false))
     } catch (error) {
       dispatch(setIsLoading(false))

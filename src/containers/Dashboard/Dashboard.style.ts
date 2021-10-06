@@ -18,6 +18,7 @@ export const DashHeader = styled.div`
 
 export const DashCardsRow = styled(Row)`
   margin-top: 25px;
+  margin-bottom: 100px;
 `
 
 export const CardsCol = styled(Col)``
@@ -157,7 +158,7 @@ export const MMTranListsSection = styled.div`
   border-radius: 8px;
   min-height: 300px;
   margin-top: 30px;
-  padding: 20px;
+  padding: 20px 20px 0;
 `
 
 export const BalanceCol = styled(Col)``

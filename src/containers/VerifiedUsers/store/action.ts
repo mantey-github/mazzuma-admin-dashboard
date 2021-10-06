@@ -4,6 +4,7 @@ import { RootState } from '../../../redux/reducers'
 import { AnyAction } from 'redux'
 import apigateway from '../../../utils/apigateway'
 import { setIsLoading } from '../../App/store/action'
+import { descend, prop, sort } from 'ramda'
 
 export const setVerifiedUsersAction = (users: Array<VerifiedUser>): VerifiedUsersActionTypes => {
   return {
@@ -17,7 +18,11 @@ export const getVerifiedUsers = (): ThunkAction<void, RootState, unknown, AnyAct
     dispatch(setIsLoading(true))
     try {
       const users = (await apigateway.get('/getVerifiedUsers')) as Array<VerifiedUser>
-      dispatch(setVerifiedUsersAction(users || []))
+
+      if (!users) return
+
+      dispatch(setVerifiedUsersAction(sort(descend(prop('id')), users)))
+
       dispatch(setIsLoading(false))
     } catch (error) {
       dispatch(setIsLoading(false))

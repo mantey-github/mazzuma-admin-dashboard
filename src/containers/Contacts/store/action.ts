@@ -4,6 +4,7 @@ import { RootState } from '../../../redux/reducers'
 import { AnyAction } from 'redux'
 import apigateway from '../../../utils/apigateway'
 import { setIsLoading } from '../../App/store/action'
+import { descend, prop, sort } from 'ramda'
 
 export const setContactsAction = (contacts: Array<Contact>): ContactsActionTypes => {
   return {
@@ -17,7 +18,11 @@ export const getContacts = (): ThunkAction<void, RootState, unknown, AnyAction> 
     dispatch(setIsLoading(true))
     try {
       const contacts = (await apigateway.get('/getContacts')) as Array<Contact>
-      dispatch(setContactsAction(contacts || []))
+
+      if (!contacts) return
+
+      dispatch(setContactsAction(sort(descend(prop('id')), contacts)))
+
       dispatch(setIsLoading(false))
     } catch (error) {
       dispatch(setIsLoading(false))

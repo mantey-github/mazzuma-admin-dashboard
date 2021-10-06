@@ -5,7 +5,7 @@ export interface AccountState {
 }
 
 export interface Account {
-  id: string
+  id: number
   username: string
   role: number
   active: number

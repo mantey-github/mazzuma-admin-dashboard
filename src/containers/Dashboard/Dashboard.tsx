@@ -29,6 +29,8 @@ import { getBusinesses } from '../Businesses/store/action'
 import { getVerifiedUsers } from '../VerifiedUsers/store/action'
 import { getTransactions } from '../Transactions/store/action'
 import { pluck, sum } from 'ramda'
+import { Transaction } from '../Transactions/store/types'
+import moment from 'moment'
 
 Dashboard.propTypes = {
   history: PropTypes.object as PropTypes.Validator<H.History>,
@@ -37,6 +39,7 @@ Dashboard.propTypes = {
 
 function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>) {
   const [totalMMTransactions, setTotalMMTransactions] = useState(0)
+  const [recentTransactions, setRecentTransactions] = useState<Array<Transaction>>([])
 
   const { businesses, transactions, verifiedUsers } = useSelector(
     (state: RootState) => ({
@@ -60,6 +63,7 @@ function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>
   useEffect(() => {
     const amount = pluck('amount', transactions).map((value) => parseFloat(value))
     setTotalMMTransactions(sum(amount))
+    setRecentTransactions(transactions.slice(0, 10))
   }, [transactions])
 
   return (
@@ -115,61 +119,35 @@ function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>
             </CardsCol>
           </div>
 
-          {/* <MMTranListsSection> */}
-          {/*  <TransTitleLabel>MM Transactions (recent)</TransTitleLabel> */}
-          {/*  <MMTransRow className={'row'}> */}
-          {/*    <TransRefCol className={'col-md-4'}> */}
-          {/*      <img src={icons.iconMazzumaTransLogo} alt={'mazzuma'} /> */}
-          {/*      <div> */}
-          {/*        <p>024 000 0000</p> */}
-          {/*        <span> */}
-          {/*          MTN &bull; <span className={'codeLabel'}>657813941909082</span> */}
-          {/*        </span> */}
-          {/*      </div> */}
-          {/*    </TransRefCol> */}
-          {/*    <TransAmtCol className={'col-md-3'}> */}
-          {/*      <p>GHC 40.00</p> */}
-          {/*      <span>Pending</span> */}
-          {/*    </TransAmtCol> */}
-          {/*    <TransDateCol className={'col-md-5'}>September 29, 2020 at 10:45 AM</TransDateCol> */}
-          {/*  </MMTransRow> */}
-          {/*  <TransDivider /> */}
+          <MMTranListsSection>
+            <TransTitleLabel>MM Transactions (recent)</TransTitleLabel>
 
-          {/*  <MMTransRow className={'row'}> */}
-          {/*    <TransRefCol className={'col-md-4'}> */}
-          {/*      <img src={icons.iconMazzumaTransLogo} alt={'mazzuma'} /> */}
-          {/*      <div> */}
-          {/*        <p>024 000 0000</p> */}
-          {/*        <span> */}
-          {/*          MTN &bull; <span className={'codeLabel'}>657813941909082</span> */}
-          {/*        </span> */}
-          {/*      </div> */}
-          {/*    </TransRefCol> */}
-          {/*    <TransAmtCol className={'col-md-3'}> */}
-          {/*      <p>GHC 40.00</p> */}
-          {/*      <span>Pending</span> */}
-          {/*    </TransAmtCol> */}
-          {/*    <TransDateCol className={'col-md-5'}>September 29, 2020 at 10:45 AM</TransDateCol> */}
-          {/*  </MMTransRow> */}
-          {/*  <TransDivider /> */}
-
-          {/*  <MMTransRow className={'row'}> */}
-          {/*    <TransRefCol className={'col-md-4'}> */}
-          {/*      <img src={icons.iconMazzumaTransLogo} alt={'mazzuma'} /> */}
-          {/*      <div> */}
-          {/*        <p>024 000 0000</p> */}
-          {/*        <span> */}
-          {/*          MTN &bull; <span className={'codeLabel'}>657813941909082</span> */}
-          {/*        </span> */}
-          {/*      </div> */}
-          {/*    </TransRefCol> */}
-          {/*    <TransAmtCol className={'col-md-3'}> */}
-          {/*      <p>GHC 40.00</p> */}
-          {/*      <span>Pending</span> */}
-          {/*    </TransAmtCol> */}
-          {/*    <TransDateCol className={'col-md-5'}>September 29, 2020 at 10:45 AM</TransDateCol> */}
-          {/*  </MMTransRow> */}
-          {/* </MMTranListsSection> */}
+            {recentTransactions.length > 0 &&
+              recentTransactions.map((transaction, index) => (
+                <>
+                  <MMTransRow className={'row'} key={transaction.id}>
+                    <TransRefCol className={'col-md-4'}>
+                      <img src={icons.iconMazzumaTransLogo} alt={'mazzuma'} />
+                      <div>
+                        <p>{transaction.mmAccountNumber}</p>
+                        <span>
+                          MTN &bull; <span className={'codeLabel'}>657813941909082</span>
+                        </span>
+                      </div>
+                    </TransRefCol>
+                    <TransAmtCol className={'col-md-3'}>
+                      <p>GH₵ {parseFloat(transaction.amount)}</p>
+                      <span>Pending</span>
+                    </TransAmtCol>
+                    <TransDateCol className={'col-md-5'}>
+                      {/* September 29, 2020 at 10:45 AM */}
+                      {moment(transaction.created).format('MMMM DD, YYYY [at] h:mm A')}
+                    </TransDateCol>
+                  </MMTransRow>
+                  <TransDivider />
+                </>
+              ))}
+          </MMTranListsSection>
         </TransCol>
         <BalanceCol md={3}>
           <BalanceCard>

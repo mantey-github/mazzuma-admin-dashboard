@@ -4,6 +4,7 @@ import { RootState } from '../../../redux/reducers'
 import { AnyAction } from 'redux'
 import apigateway from '../../../utils/apigateway'
 import { setIsLoading } from '../../App/store/action'
+import { descend, prop, sort } from 'ramda'
 
 export const setBusinessAction = (businesses: Array<Business>): BusinessActionTypes => {
   return {
@@ -17,7 +18,11 @@ export const getBusinesses = (): ThunkAction<void, RootState, unknown, AnyAction
     dispatch(setIsLoading(true))
     try {
       const businesses = (await apigateway.get('/getBusinesses')) as Array<Business>
-      dispatch(setBusinessAction(businesses || []))
+
+      if (!businesses) return
+
+      dispatch(setBusinessAction(sort(descend(prop('id')), businesses)))
+
       dispatch(setIsLoading(false))
     } catch (error) {
       dispatch(setIsLoading(false))
