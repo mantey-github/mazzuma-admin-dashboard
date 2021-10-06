@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes, { InferProps } from 'prop-types'
 import * as H from 'history'
 import {
@@ -8,8 +8,14 @@ import {
   TableActionsSection,
   SearchBtn,
   SearchInput,
+  TableLoader,
 } from './Contacts.style'
 import { icons } from '../../assets/icons'
+import { Contacts as ContactsType } from './store/types'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../redux/reducers'
+import { getContacts } from './store/action'
+import moment from 'moment'
 
 Contacts.propTypes = {
   history: PropTypes.object as PropTypes.Validator<H.History>,
@@ -17,6 +23,28 @@ Contacts.propTypes = {
 }
 
 function Contacts({ history, location }: InferProps<typeof Contacts.propTypes>) {
+  const [contactLists, setContactLists] = useState<Array<ContactsType>>([])
+
+  const { isLoading, contacts } = useSelector(
+    (state: RootState) => ({
+      isLoading: state.app.isLoading,
+      contacts: state.contacts.contacts,
+    }),
+    shallowEqual
+  )
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    ;(async function fetchContacts() {
+      await dispatch(getContacts())
+    })()
+  }, [dispatch])
+
+  useEffect(() => {
+    setContactLists(contacts.slice(0, 50))
+  }, [contacts])
+
   return (
     <>
       <PageHeader>
@@ -50,46 +78,37 @@ function Contacts({ history, location }: InferProps<typeof Contacts.propTypes>) 
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Username</th>
-              <th scope="col">Role</th>
-              <th scope="col">Active</th>
-              <th scope="col">Logged In</th>
-              <th scope="col">Reset Token</th>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Email</th>
+              <th scope="col">Account ID</th>
+              <th scope="col">Deleted</th>
               <th scope="col">Created At</th>
-              <th scope="col">Deleted At</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>@fat</td>
-              <td>@fat</td>
-              <td>@fat</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry the Bird</td>
-              <td>Larry the Bird</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-            </tr>
+            {isLoading ? (
+              <TableLoader>
+                <img src={icons.iconLoader} alt={'loader'} />
+                <span>loading contacts...</span>
+              </TableLoader>
+            ) : (
+              <>
+                {contactLists.length > 0 &&
+                  contactLists.map((contact, index) => (
+                    <tr key={contact.id}>
+                      <th scope="row">{index + 1}</th>
+                      <td>{`${contact.otherName} ${contact.lastName}`}</td>
+                      <td>{contact.phone}</td>
+                      <td>{contact.email}</td>
+                      <td>{contact.accountId}</td>
+                      <td>{contact.deleted}</td>
+                      <td>{moment(contact.created).format('DD-MM-YYYY HH:mm:ss')}</td>
+                    </tr>
+                  ))}
+              </>
+            )}
           </tbody>
         </TableCard>
       </PageCardsRow>

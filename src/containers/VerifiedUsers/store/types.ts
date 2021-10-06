@@ -1,10 +1,10 @@
-export const SET_BUSINESS_ACTION = 'SET_BUSINESS_ACTION'
+export const SET_VERIFIED_USERS_ACTION = 'SET_VERIFIED_USERS_ACTION'
 
-export interface BusinessState {
-  businesses: Array<Business>
+export interface VerifiedUsersState {
+  verifiedUsers: Array<VerifiedUser>
 }
 
-export interface Business {
+export interface VerifiedUser {
   accountId: number
   active: number
   airtelAccount: string
@@ -30,9 +30,9 @@ export interface Business {
   walletId: string
 }
 
-interface SetBusinessAction {
-  type: typeof SET_BUSINESS_ACTION
-  payload: Array<Business>
+interface SetVerifiedUsersAction {
+  type: typeof SET_VERIFIED_USERS_ACTION
+  payload: Array<VerifiedUser>
 }
 
-export type BusinessActionTypes = SetBusinessAction
+export type VerifiedUsersActionTypes = SetVerifiedUsersAction
