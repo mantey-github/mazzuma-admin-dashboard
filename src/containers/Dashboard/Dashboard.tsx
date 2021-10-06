@@ -28,6 +28,7 @@ import urlPaths from '../../utils/urlPaths'
 import { getBusinesses } from '../Businesses/store/action'
 import { getVerifiedUsers } from '../VerifiedUsers/store/action'
 import { getTransactions } from '../Transactions/store/action'
+import { pluck, sum } from 'ramda'
 
 Dashboard.propTypes = {
   history: PropTypes.object as PropTypes.Validator<H.History>,
@@ -35,6 +36,8 @@ Dashboard.propTypes = {
 }
 
 function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>) {
+  const [totalMMTransactions, setTotalMMTransactions] = useState(0)
+
   const { businesses, transactions, verifiedUsers } = useSelector(
     (state: RootState) => ({
       businesses: state.businesses.businesses,
@@ -54,7 +57,10 @@ function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>
     })()
   }, [dispatch])
 
-  console.log('fetchDashboardStats', transactions)
+  useEffect(() => {
+    const amount = pluck('amount', transactions).map((value) => parseFloat(value))
+    setTotalMMTransactions(sum(amount))
+  }, [transactions])
 
   return (
     <>
@@ -96,7 +102,7 @@ function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>
               <CardItemThree>
                 <img src={icons.iconDashboardCardThree} alt={'card icon'} />
                 <div>
-                  <span className={'count'}>0</span>
+                  <span className={'count'}>{transactions.length || 0}</span>
                   <p>MM Transactions</p>
                   <p
                     className={'more'}
@@ -170,7 +176,7 @@ function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>
             <img src={images.imageMazzumaLogo} alt={'mazzuma logo'} />
             <p className={'notice'}>Current balance:</p>
             <p className={'money'}>
-              <span className={'currency'}>GHC</span> 0
+              <span className={'currency'}>GHC</span> {totalMMTransactions}
             </p>
             <span></span>
           </BalanceCard>
