@@ -18,9 +18,9 @@ NotFound.propTypes = {
 }
 
 function NotFound({ history }: InferProps<typeof NotFound.propTypes>) {
-  const { authProfile } = useSelector(
+  const { authToken } = useSelector(
     (state: RootState) => ({
-      authProfile: state.auth.authProfile,
+      authToken: state.auth.authToken,
     }),
     shallowEqual
   )

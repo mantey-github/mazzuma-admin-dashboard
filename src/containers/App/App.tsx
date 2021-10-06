@@ -14,13 +14,11 @@ import {
 import { Sidebar, Toast } from '../../components'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
-import { signOut } from '../SignIn/store/action'
 import PropTypes, { InferProps } from 'prop-types'
 import * as H from 'history'
 import { ToastProvider } from 'react-toast-notifications'
 import { useIdleTimer } from 'react-idle-timer'
 import { setIsAuthIdle } from './store/action'
-import { icons } from '../../assets/icons'
 import urlPaths from '../../utils/urlPaths'
 
 App.propTypes = {
@@ -32,9 +30,8 @@ const IDLE_TIMEOUT = 1000 * 60 * 30
 
 function App({ history, children }: InferProps<typeof App.propTypes>) {
   const [showDropdown, setShowDropdown] = useState(false)
-  const { authProfile, isAuthIdle } = useSelector(
+  const { isAuthIdle } = useSelector(
     (state: RootState) => ({
-      authProfile: state.auth.authProfile,
       isAuthIdle: state.app.isAuthIdle,
     }),
     shallowEqual
@@ -70,7 +67,7 @@ function App({ history, children }: InferProps<typeof App.propTypes>) {
             {/* <img className={'notify'} src={icons.iconNotifyBadge} alt={'notify icon'} /> */}
             <DropWrapper onToggle={() => setShowDropdown(!showDropdown)} show={showDropdown}>
               <DropToggle data-toggle="dropdown">
-                <UserName data-initials={'SC'}>{`Sam Cudjoe`}</UserName>
+                <UserName data-initials={'MA'}>{`Maz Admin`}</UserName>
               </DropToggle>
               <DropMenu>
                 <DropMenuItem

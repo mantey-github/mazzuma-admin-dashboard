@@ -1,10 +1,4 @@
-import {
-  AuthActionTypes,
-  AuthProfile,
-  PROCESSING_AUTH,
-  SET_AUTH_PROFILE,
-  SET_HAS_SENT_SIGNIN_LINK,
-} from './types'
+import { AuthActionTypes, AuthToken, PROCESSING_AUTH, SET_AUTH_TOKEN } from './types'
 import axios, { AxiosResponse } from 'axios'
 import env from '../../../utils/env'
 import { ThunkAction } from 'redux-thunk'
@@ -16,8 +10,9 @@ import { transformRequest, transformResponse } from '../../../utils/request'
 import { setCookie } from '../../../utils/setCookie'
 import urlPaths from '../../../utils/urlPaths'
 import Cookies from 'js-cookie'
+import { isEmpty } from 'ramda'
 
-axios.defaults.baseURL = env('MAZZUMA_API_URL')
+axios.defaults.baseURL = env('MAZZUMA_ADMIN_API_URL')
 
 axios.defaults.headers.common['Accept'] = 'application/json'
 
@@ -28,17 +23,10 @@ export const processAuth = (isAuthenticating: boolean): AuthActionTypes => {
   }
 }
 
-export const setAuthProfile = (profile: AuthProfile | null): AuthActionTypes => {
+export const setAuthToken = (token?: AuthToken): AuthActionTypes => {
   return {
-    type: SET_AUTH_PROFILE,
-    payload: profile,
-  }
-}
-
-export const setHasSentSignInLink = (sentLink: boolean): AuthActionTypes => {
-  return {
-    type: SET_HAS_SENT_SIGNIN_LINK,
-    payload: sentLink,
+    type: SET_AUTH_TOKEN,
+    payload: token,
   }
 }
 
@@ -51,74 +39,43 @@ export const signIn = (
   return async (dispatch) => {
     dispatch(processAuth(true))
     try {
-      const response = await apigateway.post('/login', {
+      const response = (await apigateway.post('/login', {
         username: username,
         password: password,
-      })
+      })) as { message: string; status: boolean; token: string }
 
-      console.log('Something', response)
-      // dispatch(processAuth(false))
-      // history.push(urlPaths.DASHBOARD_URL_PATH)
+      dispatch(processAuth(false))
 
-      // dispatch(setHasSentSignInLink(true))
+      if (!response.status) {
+        alert(response.message)
+        return
+      }
 
-      // if (!isEmpty(destinationPath)) {
-      //   history.replace(destinationPath)
-      //   return
-      // }
-      //
-      // history.replace(urlPaths.DASHBOARD_PATH, { authProfile: mergedAuthData })
+      const token = {
+        token: response.token,
+      }
+
+      dispatch(setAuthToken(token))
+
+      await setCookie('_mazzuma_admin_tokid', JSON.stringify(token))
+
+      if (!isEmpty(destinationPath)) {
+        history.replace(destinationPath)
+        return
+      }
+
+      history.replace(urlPaths.DASHBOARD_URL_PATH, token)
     } catch (error) {
-      // dispatch(processAuth(false))
-      // dispatch(setHasSentSignInLink(false))
-      console.log('Something', error)
+      dispatch(processAuth(false))
+      alert(error.message)
     }
   }
 }
 
-// export const signIn = (
-//   token: string,
-//   history: H.History,
-//   destinationPath: string
-// ): ThunkAction<void, RootState, unknown, AnyAction> => {
-//   return async (dispatch) => {
-//     dispatch(setHasSentSignInLink(true))
-//     try {
-//       const {
-//         data: {
-//           data: { admin },
-//         },
-//       } = (await axios({
-//         method: 'get',
-//         url: `/`,
-//         headers: {
-//           'Content-Type': 'application/json',
-//           Accept: 'application/json',
-//           Authorization: `Bearer ${token}`,
-//         },
-//         transformResponse: transformResponse,
-//         transformRequest: transformRequest,
-//       })) as any
-//
-//       await setCookie('_mazzuma_admin_tokid', JSON.stringify(token))
-//       await setCookie('_mazzuma_admin_usrid', JSON.stringify(admin))
-//
-//       dispatch(setHasSentSignInLink(false))
-//       history.replace(destinationPath)
-//     } catch (error) {
-//       dispatch(processAuth(false))
-//       dispatch(setHasSentSignInLink(false))
-//       console.log(error)
-//     }
-//   }
-// }
-
 export const signOut = (history: H.History): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
-    dispatch(setAuthProfile(null))
-    dispatch(setHasSentSignInLink(false))
+    dispatch(setAuthToken(undefined))
     Cookies.remove('_mazzuma_admin_tokid')
-    Cookies.remove('_mazzuma_admin_usrid')
     history.replace(urlPaths.SIGNIN_URL_PATH)
     window.location.reload()
   }

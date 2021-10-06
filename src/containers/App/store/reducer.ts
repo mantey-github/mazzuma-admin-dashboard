@@ -5,8 +5,7 @@ import {
   SET_AUTH_IDLE_ACTION,
   SET_REMOVE_ALL_TOAST,
   SET_HAS_INTERNET_CONNECTION,
-  SET_HAS_MAJOR_SYSTEM_ERROR_ACTION,
-  SET_RESYNCING_AUTH_ACTION,
+  SET_LOADING_ACTION,
 } from './types'
 
 const initialState: AppState = {
@@ -20,8 +19,7 @@ const initialState: AppState = {
   removeAllToast: false,
   hasInternetConnection: true,
   isAuthIdle: false,
-  isReSyncingAuth: false,
-  hasSystemMajorError: false,
+  isLoading: false,
 }
 
 export function app(state = initialState, action: AppActionTypes): AppState {
@@ -46,15 +44,10 @@ export function app(state = initialState, action: AppActionTypes): AppState {
         ...state,
         isAuthIdle: action.payload,
       }
-    case SET_RESYNCING_AUTH_ACTION:
+    case SET_LOADING_ACTION:
       return {
         ...state,
-        isReSyncingAuth: action.payload,
-      }
-    case SET_HAS_MAJOR_SYSTEM_ERROR_ACTION:
-      return {
-        ...state,
-        hasSystemMajorError: action.payload,
+        isLoading: action.payload,
       }
     default:
       return state

@@ -14,15 +14,11 @@ const lazyWithRetry = (componentImport: any) =>
       return component
     } catch (error) {
       if (!pageHasAlreadyBeenForceRefreshed) {
-        // Assuming that the user is not on the latest version of the application.
-        // Let's refresh the page immediately.
+        // Assuming user is not on the latest version of the app. Let's refresh the page immediately.
         window.localStorage.setItem('_mazzuma_admin_dashboard_page_force_refreshed', 'true')
         return window.location.reload()
       }
 
-      // The page has already been reloaded
-      // Assuming that user is already using the latest version of the application.
-      // Let's let the application crash and raise the error.
       throw error
     }
   })

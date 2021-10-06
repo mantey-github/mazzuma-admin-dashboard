@@ -26,16 +26,20 @@ export const transformResponse = [
 ]
 
 const defaultRequests = {
-  baseURL: env('MAZZUMA_API_URL'),
+  baseURL: env('MAZZUMA_ADMIN_API_URL'),
   headers: () => {
+    let AUTH_TOKEN = ''
+
     const cookie = getCookie('_mazzuma_admin_tokid')
 
-    const AUTH_TOKEN = cookie && JSON.parse(cookie)
+    if (cookie) {
+      AUTH_TOKEN = JSON.parse(cookie)?.token
+    }
 
     return {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...(AUTH_TOKEN ? { Authorization: `Bearer ${AUTH_TOKEN}` } : {}),
+      ...(AUTH_TOKEN ? { Authorization: `${AUTH_TOKEN}` } : {}),
     }
   },
   transformRequest,

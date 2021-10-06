@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import useValidator from '../../hooks/useValidator'
 import { signIn } from './store/action'
-import { useParams } from 'react-router-dom'
 import { images } from '../../assets/images'
 
 SignIn.propTypes = {
@@ -34,11 +33,9 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
   const [password, setPassword] = useState('')
   const [validator, showValidationMessage] = useValidator()
   const [destinationPath, setDestinationPath] = useState<string>('')
-  const { token } = useParams<Record<string, string | undefined>>()
 
-  const { isAuthenticating, hasSentSigninLink } = useSelector((state: RootState) => ({
+  const { isAuthenticating } = useSelector((state: RootState) => ({
     isAuthenticating: state.auth.isAuthenticating,
-    hasSentSigninLink: state.auth.hasSentSigninLink,
   }))
 
   const dispatch = useDispatch()
@@ -52,7 +49,7 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
     }
   }, [location.state, dispatch, history])
 
-  const handleSendSignInLink = () => {
+  const handleSendSignIn = () => {
     if (!validator.allValid()) {
       showValidationMessage(true)
       return
@@ -72,7 +69,7 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
               <SignInCardBody>
                 <FormGroup>
                   <FormText htmlFor="username" className="col-md-4">
-                    Username
+                    Email
                   </FormText>
                   <FormInputCol md={6}>
                     <SignInInput
@@ -111,7 +108,7 @@ function SignIn({ history, location }: InferProps<typeof SignIn.propTypes>) {
                 <FormButtonRow>
                   <FormButtonCol className="col-md-8 offset-md-4">
                     <FormButton
-                      onClick={handleSendSignInLink}
+                      onClick={handleSendSignIn}
                       loading={isAuthenticating}
                       disabled={isAuthenticating}
                       label={'Login'}

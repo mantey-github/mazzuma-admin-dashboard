@@ -31,8 +31,8 @@ Dashboard.propTypes = {
 }
 
 function Dashboard({ history, location }: InferProps<typeof Dashboard.propTypes>) {
-  const { authProfile } = useSelector((state: RootState) => ({
-    authProfile: state.auth.authProfile,
+  const { authToken } = useSelector((state: RootState) => ({
+    authToken: state.auth.authToken,
   }))
 
   return (

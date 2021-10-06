@@ -8,10 +8,7 @@ import {
   PageWrapper,
 } from './ErrorBoundary.style'
 import urlPaths from '../../utils/urlPaths'
-import * as Cookies from 'js-cookie'
-import { reportErrorToSlack } from '../../utils/reportErrorToSlack'
-import { getCookie } from '../../utils/getCookie'
-import env from '../../utils/env'
+import { images } from '../../assets/images'
 
 type ErrorBoundaryProps = {
   children?: React.ReactNode
@@ -46,29 +43,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
   logErrorToService = (error: Error | null, errorInfo: React.ErrorInfo) => {
     if (error) {
-      // TODO: send error report to service provider
-      // TODO https://www.smashingmagazine.com/2020/06/react-error-handling-reporting-error-boundary-sentry/
-      // Temporarily using Slack
-
-      const cookie = getCookie('_mazzuma_admin_tokid')
-      const auth = cookie && JSON.parse(cookie)
-
-      reportErrorToSlack(
-        error?.message,
-        error?.name,
-        error?.stack || 'Main Frontend System Error',
-        window.location.href,
-        // eslint-disable-next-line camelcase
-        auth?.phoneNumber || auth?.phone_number || ''
-      )
+      // TODO: send error report to service provider Sentry or any error reporter app
     }
-  }
-
-  handleSignOut = () => {
-    Cookies.remove('_mazzuma_admin_tokid')
-    Cookies.remove('_mazzuma_admin_usrid')
-    localStorage.clear()
-    window.location.reload()
   }
 
   handleGoBack = () => {
@@ -85,7 +61,12 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 <PageContainer>
                   <ErrorBoundWrapper>
                     <ErrorWrapper md="12">
-                      <img width={'30%'} alt="error on mazzuma" src={''} className="error" />
+                      <img
+                        width={'30%'}
+                        alt="error on mazzuma"
+                        src={images.imageMazzumaLogo}
+                        className="error"
+                      />
                       <h5>{'Whoops!'}</h5>
                       <p>
                         {`Something unusual happened. Kindly retry your last action.`}
@@ -93,14 +74,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                       </p>
                       <p>
                         If this persists, please reach out to{' '}
-                        <span
-                          onClick={() => {
-                            window.open(env('MAZZUMA_SUPPORT_URL'), '_self')
-                          }}
-                        >
-                          {' '}
-                          support team.
-                        </span>
+                        <span onClick={() => false}> support team.</span>
                       </p>
                     </ErrorWrapper>
                   </ErrorBoundWrapper>
