@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   AppContainer,
   SidebarColumn,
@@ -12,14 +12,13 @@ import {
   DropMenuItem,
 } from './App.style'
 import { Sidebar, Toast } from '../../components'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../redux/reducers'
+import { useDispatch } from 'react-redux'
 import PropTypes, { InferProps } from 'prop-types'
 import * as H from 'history'
 import { ToastProvider } from 'react-toast-notifications'
 import { useIdleTimer } from 'react-idle-timer'
-import { setIsAuthIdle } from './store/action'
 import urlPaths from '../../utils/urlPaths'
+import { signOut } from '../SignIn/store/action'
 
 App.propTypes = {
   history: PropTypes.object as PropTypes.Validator<H.History>,
@@ -30,22 +29,15 @@ const IDLE_TIMEOUT = 1000 * 60 * 30
 
 function App({ history, children }: InferProps<typeof App.propTypes>) {
   const [showDropdown, setShowDropdown] = useState(false)
-  const { isAuthIdle } = useSelector(
-    (state: RootState) => ({
-      isAuthIdle: state.app.isAuthIdle,
-    }),
-    shallowEqual
-  )
 
   const dispatch = useDispatch()
 
-  const handleOnActive = (event: Event) => {
-    dispatch(setIsAuthIdle(false))
+  const handleOnActive = () => {
+    // Admin is active
   }
 
-  const handleOnIdle = (event: Event) => {
-    // dispatch(setIsAuthIdle(true))
-    // dispatch(signOut(history))
+  const handleOnIdle = () => {
+    dispatch(signOut(history))
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -73,7 +65,7 @@ function App({ history, children }: InferProps<typeof App.propTypes>) {
                 <DropMenuItem
                   className="dropdown-item"
                   to={urlPaths.SIGNIN_URL_PATH}
-                  onClick={() => false}
+                  onClick={() => dispatch(signOut(history))}
                 >
                   Log Out
                 </DropMenuItem>
